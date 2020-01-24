@@ -18,11 +18,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".fragments.AboutFragment"
-            android:label="@string/about_title"
-            android:parentActivityName=".ui.main.TrivialActivity" />
+
     </application>
 
 </manifest>

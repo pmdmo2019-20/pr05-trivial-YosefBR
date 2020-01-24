@@ -1,14 +1,14 @@
 package es.iessaladillo.pedrojoya.pr05_trivial.fragments
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import es.iessaladillo.pedrojoya.pr05_trivial.R
 
-class AboutFragment : Fragment(R.layout.about_fragment) {
-
+class GameWonFragment : Fragment(R.layout.game_won_fragment) {
     companion object {
-        fun newInstance() = AboutFragment()
+        fun newInstance() = GameWonFragment()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class AboutFragment : Fragment(R.layout.about_fragment) {
     private fun setupAppBar() {
         (requireActivity() as AppCompatActivity).supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
-            setTitle(R.string.title_mnuAbout)
+            setTitle(R.string.game_won_imgYouWin)
         }
     }
 }

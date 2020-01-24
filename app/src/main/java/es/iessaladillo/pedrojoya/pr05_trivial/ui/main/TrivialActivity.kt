@@ -1,59 +1,60 @@
 package es.iessaladillo.pedrojoya.pr05_trivial.ui.main
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import es.iessaladillo.pedrojoya.pr05_trivial.R
-import es.iessaladillo.pedrojoya.pr05_trivial.fragments.AboutFragment
-import es.iessaladillo.pedrojoya.pr05_trivial.fragments.RulesFragment
-import es.iessaladillo.pedrojoya.pr05_trivial.fragments.SettingsFragment
+
 
 class TrivialActivity : AppCompatActivity() {
+
+    private val settings: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.trivial_activity)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fcMain, MainFragment())
-            .commit()
-    }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.trivial_activity, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            R.id.mnuRules -> {
-                navigateToRules()
-                true
-            }
-            R.id.mnuAbout -> {
-                navigateToAbout()
-                true
-            }
-            R.id.mnuSettings -> {
-                navigateToSettings()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        if (savedInstanceState == null){
+            showInitialDestination()
         }
+    }
 
-    private fun navigateToRules() {
+    private fun showInitialDestination() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fcMain, RulesFragment())
+            .replace(R.id.fcMain, MainFragment.newInstance())
             .commit()
     }
 
-    private fun navigateToAbout() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fcMain, AboutFragment())
-            .commit()
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
-    private fun navigateToSettings() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fcMain, SettingsFragment())
-            .commit()
+    override fun onBackPressed() {
+        val fragmentManager = supportFragmentManager
+        val fragment = fragmentManager.findFragmentById(R.id.fcMain)
+
+        if (fragment.toString().substring(0, 12) == "PlayFragment" && settings.getBoolean("SwitchKey", true)) {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.main_confirmation))
+                .setMessage(getString(R.string.main_quit_game))
+                .setPositiveButton(getString(R.string.main_yes)) { _, _ ->
+                    super.onBackPressed()
+                }
+                    .setNegativeButton(getString(R.string.main_no)) { _, _ ->
+                        //se mantiene en el fragmento
+                    }
+                        .show()
+        }
+        else if (fragment.toString().substring(0, 16) == "GameOverFragment") {
+            showInitialDestination()
+        }
+        else {
+            super.onBackPressed()
+        }
     }
 }

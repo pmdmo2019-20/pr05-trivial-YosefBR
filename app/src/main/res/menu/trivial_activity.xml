@@ -1,11 +1,29 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mnuRules"
+        app:showAsAction="never"
+        android:orderInCategory="200"
         android:title="@string/title_mnuRules"/>
     <item
         android:id="@+id/mnuAbout"
+        app:showAsAction="never"
+        android:orderInCategory="200"
         android:title="@string/title_mnuAbout"/>
     <item
         android:id="@+id/mnuSettings"
+        app:showAsAction="never"
+        android:orderInCategory="200"
         android:title="@string/title_mnuSettings"/>
 </menu>
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--<item-->
+<!--    android:id="@+id/mnuRules"-->
+<!--    android:title="@string/title_mnuRules"/>-->
+<!--<item-->
+<!--    android:id="@+id/mnuAbout"-->
+<!--    android:title="@string/title_mnuAbout"/>-->
+<!--<item-->
+<!--    android:id="@+id/mnuSettings"-->
+<!--    android:title="@string/title_mnuSettings"/>-->
+<!--</menu>-->
