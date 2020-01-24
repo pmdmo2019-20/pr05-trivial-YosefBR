@@ -6,5 +6,5 @@ import es.iessaladillo.pedrojoya.pr05_trivial.base.Question
 class PlayFragmentViewModel : ViewModel() {
 
     var currentQuestion = 0
-    lateinit var questionsList: List<Question>
+    var questionsList: List<Question> ?= null
 }

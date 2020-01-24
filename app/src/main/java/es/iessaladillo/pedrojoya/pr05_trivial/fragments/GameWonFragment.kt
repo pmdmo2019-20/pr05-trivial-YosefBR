@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import es.iessaladillo.pedrojoya.pr05_trivial.R
+import es.iessaladillo.pedrojoya.pr05_trivial.play.PlayFragment
+import kotlinx.android.synthetic.main.game_won_fragment.*
 
 class GameWonFragment : Fragment(R.layout.game_won_fragment) {
     companion object {
@@ -18,6 +20,9 @@ class GameWonFragment : Fragment(R.layout.game_won_fragment) {
 
     private fun setupViews() {
         setupAppBar()
+        nextBtn.setOnClickListener{
+            nextMatch()
+        }
     }
 
     private fun setupAppBar() {
@@ -25,5 +30,11 @@ class GameWonFragment : Fragment(R.layout.game_won_fragment) {
             setDisplayHomeAsUpEnabled(true)
             setTitle(R.string.game_won_imgYouWin)
         }
+    }
+
+    private fun nextMatch() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fcMain, PlayFragment.newInstance())
+            .commit()
     }
 }

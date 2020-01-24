@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import es.iessaladillo.pedrojoya.pr05_trivial.R
 
-
 class TrivialActivity : AppCompatActivity() {
 
     private val settings: SharedPreferences by lazy {
@@ -38,6 +37,7 @@ class TrivialActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         val fragment = fragmentManager.findFragmentById(R.id.fcMain)
 
+        //Si el fragmento desde el que se pulsa el boton de back es "PlayFragment" y la opcion del dialog esta activada
         if (fragment.toString().substring(0, 12) == "PlayFragment" && settings.getBoolean("SwitchKey", true)) {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.main_confirmation))
@@ -50,7 +50,8 @@ class TrivialActivity : AppCompatActivity() {
                     }
                         .show()
         }
-        else if (fragment.toString().substring(0, 16) == "GameOverFragment") {
+        //Al pulsar el boton atras en el fragmento de ganador o perdedor, se vuelve a la pantalla principal
+        else if (fragment.toString().substring(0, 16) == "GameOverFragment" || fragment.toString().substring(0, 15) == "GameWonFragment") {
             showInitialDestination()
         }
         else {
