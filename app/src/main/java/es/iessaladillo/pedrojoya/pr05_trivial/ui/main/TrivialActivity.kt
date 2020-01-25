@@ -21,7 +21,7 @@ class TrivialActivity : AppCompatActivity() {
             showInitialDestination()
         }
     }
-
+    //Muestra el fragmento principal al iniciar la actividad
     private fun showInitialDestination() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fcMain, MainFragment.newInstance())
@@ -43,12 +43,16 @@ class TrivialActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.main_confirmation))
                 .setMessage(getString(R.string.main_quit_game))
                 .setPositiveButton(getString(R.string.main_yes)) { _, _ ->
-                    super.onBackPressed()
+                    showInitialDestination()
                 }
                     .setNegativeButton(getString(R.string.main_no)) { _, _ ->
                         //se mantiene en el fragmento
                     }
                         .show()
+        }
+        //Para que controle que se mande desde el play fragment directamente al main fragment
+        else if (fragment.toString().substring(0, 12) == "PlayFragment" && !settings.getBoolean("SwitchKey", true)) {
+            showInitialDestination()
         }
         //Al pulsar el boton atras en el fragmento de ganador o perdedor, se vuelve a la pantalla principal
         else if (fragment.toString().substring(0, 16) == "GameOverFragment" || fragment.toString().substring(0, 15) == "GameWonFragment") {
